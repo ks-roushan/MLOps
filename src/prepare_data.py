@@ -3,8 +3,8 @@ import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 
-TEST_SIZE = 0.2
-RANDOM_STATE = 42
+TEST_SIZE = 0.3
+RANDOM_STATE = 7
 
 def main():
     iris = load_iris(as_frame=True)
