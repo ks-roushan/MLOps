@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 .dvc/cache
 .dvc/tmp
+*.csv
+*.joblib
