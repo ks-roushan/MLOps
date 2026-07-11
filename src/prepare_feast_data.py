@@ -1,6 +1,6 @@
-"""Build a Feast-ready parquet file: entity id, features, event_timestamp."""
+"""Build a Feast-ready parquet file: entity id, features, event_timestamp (UTC)."""
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 def main():
     train_df = pd.read_csv("data/train.csv")
@@ -9,7 +9,7 @@ def main():
 
     full_df["flower_id"] = full_df.index.astype(int)
 
-    base_time = datetime.now()
+    base_time = datetime.now(timezone.utc)
     full_df["event_timestamp"] = [
         base_time - timedelta(minutes=len(full_df) - i) for i in range(len(full_df))
     ]
@@ -20,6 +20,7 @@ def main():
     ]
     full_df[feast_cols].to_parquet("feature_repo/iris_features.parquet", index=False)
     print(f"Saved {len(full_df)} rows to feature_repo/iris_features.parquet")
+    print(f"Timestamp range: {full_df['event_timestamp'].min()} to {full_df['event_timestamp'].max()}")
 
 if __name__ == "__main__":
     main()
