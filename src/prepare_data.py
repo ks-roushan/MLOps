@@ -12,6 +12,7 @@ def main():
     df.columns = [
         "sepal_length", "sepal_width", "petal_length", "petal_width", "target"
     ]
+    df["row_id"] = df.index  # track original identity, not just values
 
     train_df, test_df = train_test_split(
         df, test_size=TEST_SIZE, random_state=RANDOM_STATE, stratify=df["target"]
