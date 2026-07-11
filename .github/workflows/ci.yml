@@ -8,6 +8,10 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,7 +33,8 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          workload_identity_provider: 'projects/91452255889/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: '91452255889-compute@developer.gserviceaccount.com'
 
       - name: Pull data and models via DVC
         run: |
