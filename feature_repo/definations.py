@@ -1,8 +1,9 @@
 from datetime import timedelta
 from feast import Entity, FeatureView, Field, FileSource
 from feast.types import Float32, Int64
+from feast.value_type import ValueType
 
-flower = Entity(name="flower_id", join_keys=["flower_id"])
+flower = Entity(name="flower_id", join_keys=["flower_id"], value_type=ValueType.INT64)
 
 iris_source = FileSource(
     path="iris_features.parquet",
